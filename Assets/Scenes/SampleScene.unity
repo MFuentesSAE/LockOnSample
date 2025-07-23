@@ -1126,8 +1126,8 @@ MonoBehaviour:
     Wrap: 1
     Recentering:
       Enabled: 0
-      Wait: 1
-      Time: 2
+      Wait: 0
+      Time: 0.25
     Restrictions: 0
   VerticalAxis:
     Value: 17.5
@@ -1136,8 +1136,8 @@ MonoBehaviour:
     Wrap: 0
     Recentering:
       Enabled: 0
-      Wait: 1
-      Time: 2
+      Wait: 0
+      Time: 0.25
     Restrictions: 0
   RadialAxis:
     Value: 1
@@ -1368,6 +1368,10 @@ PrefabInstance:
     - target: {fileID: 1881493953458060845, guid: babc94e5a47dfbe469b40b71bf1109b5, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1881493953458060845, guid: babc94e5a47dfbe469b40b71bf1109b5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1963375581420927272, guid: babc94e5a47dfbe469b40b71bf1109b5, type: 3}
       propertyPath: m_Layer

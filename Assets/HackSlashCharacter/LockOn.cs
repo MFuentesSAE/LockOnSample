@@ -10,7 +10,7 @@ public class LockOn : MonoBehaviour
 	public LayerMask searchMask;
 	private bool lockon;
 
-	public KeyCode toggleLockOnKey, switchTargetsKey;
+	public KeyCode toggleLockOnKey;
 
 	[Space(10)]
 	public UnityEvent onLockOnEvent, onEndLockOnEvent;
@@ -59,7 +59,7 @@ public class LockOn : MonoBehaviour
 			LockCamera(lockon);
 		}
 
-		if (Input.GetKeyDown(switchTargetsKey) && lockon)
+		if (Input.GetMouseButtonDown(2) && lockon)
 		{
 			SwitchTargets();
 			SearchLockOnTargets();
@@ -113,7 +113,10 @@ public class LockOn : MonoBehaviour
 			}
 		}
 
-		elapsedTargets.Add(closestTarget);
+		if (closestTarget != null)
+		{
+			elapsedTargets.Add(closestTarget);
+		}
 
 		return closestTarget;
 	}
@@ -160,7 +163,7 @@ public class LockOn : MonoBehaviour
 	private void EndLockOn()
 	{
 		lockon = false;
-		orbitalFollow.TrackerSettings.BindingMode = Unity.Cinemachine.TargetTracking.BindingMode.LazyFollow;
+		LockCamera(false);
 		onEndLockOnEvent?.Invoke();
 		elapsedTargets.Clear();
 		lockOnTargets.Clear();
@@ -182,6 +185,22 @@ public class LockOn : MonoBehaviour
 			orbitalFollow.HorizontalAxis.Recentering.Enabled = false;
 			orbitalFollow.VerticalAxis.Recentering.Enabled = false;
 		}
+	}
+
+	private void GetDot(Transform target)
+	{
+		if (target == null)
+		{
+			return;
+		}
+
+		Transform closestTarget = GetClosestTarget();
+		Vector3 toEnemy = (closestTarget.position - transform.position).normalized;
+		float dot = Vector3.Dot(transform.right, toEnemy);
+
+		string directionString = dot > 0 ? "Right" : "Left";
+
+		Debug.Log($"currentTargetIs: {target.name} and the dot between it and the other closest target, {closestTarget} is {directionString}");
 	}
 
 }
