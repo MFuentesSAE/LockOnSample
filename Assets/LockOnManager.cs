@@ -3,7 +3,7 @@ using UnityEngine.Events;
 using UnityEngine;
 using Unity.Cinemachine;
 
-public class LockOnManabge : MonoBehaviour
+public class LockOnManager : MonoBehaviour
 {
     public float sphereRadius;
     public float lockOnRotationSpeed;
@@ -29,6 +29,7 @@ public class LockOnManabge : MonoBehaviour
 
     void Update()
     {
+        //Seguir al objetivo
         if (lockingOn)
         {
             LookAtTaget();
@@ -39,6 +40,7 @@ public class LockOnManabge : MonoBehaviour
             }
         }
 
+        //Input para iniciar el lockon
         if (Input.GetKeyDown(lockonKey))
         {
             if (lockingOn == true)
@@ -53,13 +55,17 @@ public class LockOnManabge : MonoBehaviour
 
             if (lockingOn)
             {
-                onLockOnEvent.Invoke();
+				currentTarget = GetClosestTarget();
+				onLockOnEvent.Invoke();
                 LockCamera(true);
             }
         }
 
+        //Input para cambiar de objetivo
         if (Input.GetMouseButtonDown(2) && lockingOn)
         {
+            SearchTargets();
+
             if(elapsedTargetList.Count >= targetList.Count) 
             {
                 elapsedTargetList.Clear();
@@ -78,8 +84,6 @@ public class LockOnManabge : MonoBehaviour
                 targetList.Add(objectsFound[i].transform);
             }
         }
-
-        currentTarget = GetClosestTarget();
     }
 
     private Transform GetClosestTarget()

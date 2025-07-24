@@ -896,112 +896,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1234806634 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7623259529076885800, guid: 4965a3a45bfc149408fca54f30fcd58b, type: 3}
-  m_PrefabInstance: {fileID: 7546686623568949761}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1234806637 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1294868921399814598, guid: 4965a3a45bfc149408fca54f30fcd58b, type: 3}
-  m_PrefabInstance: {fileID: 7546686623568949761}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1234806634}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 285b4168fe901fd4abc3e9827c84dead, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1234806638 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2737173704999933659, guid: 4965a3a45bfc149408fca54f30fcd58b, type: 3}
-  m_PrefabInstance: {fileID: 7546686623568949761}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1234806634}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2012acd948656ac469386c7af0bbf4e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1234806641
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1234806634}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e71e58a36f94d474ba3aa5597ab0d978, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sphereRadius: 10
-  lockOnRotationSpeed: 15
-  maxLockOnDistance: 15
-  lockingOn: 0
-  searchMask:
-    serializedVersion: 2
-    m_Bits: 8
-  lockonKey: 113
-  currentTarget: {fileID: 0}
-  targetList: []
-  elapsedTargetList: []
-  onLockOnEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1234806638}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: ToggleRotation
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1234806637}
-        m_TargetAssemblyTypeName: AnimatorController, Assembly-CSharp
-        m_MethodName: SetMovementStrafe
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-  onEndLockOnEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1234806638}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: ToggleRotation
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1234806637}
-        m_TargetAssemblyTypeName: AnimatorController, Assembly-CSharp
-        m_MethodName: SetMovementStrafe
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  cinemachineController: {fileID: 1562756335}
-  orbitalFollow: {fileID: 1562756338}
 --- !u!1 &1562756334
 GameObject:
   m_ObjectHideFlags: 0
@@ -1287,6 +1181,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1853005548087255910, guid: 4965a3a45bfc149408fca54f30fcd58b, type: 3}
+      propertyPath: sphereRadius
+      value: 13.72
+      objectReference: {fileID: 0}
+    - target: {fileID: 1853005548087255910, guid: 4965a3a45bfc149408fca54f30fcd58b, type: 3}
+      propertyPath: orbitalFollow
+      value: 
+      objectReference: {fileID: 1562756338}
+    - target: {fileID: 1853005548087255910, guid: 4965a3a45bfc149408fca54f30fcd58b, type: 3}
+      propertyPath: cinemachineController
+      value: 
+      objectReference: {fileID: 1562756335}
     - target: {fileID: 2737173704999933659, guid: 4965a3a45bfc149408fca54f30fcd58b, type: 3}
       propertyPath: playerCamera
       value: 
@@ -1338,10 +1244,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7623259529076885800, guid: 4965a3a45bfc149408fca54f30fcd58b, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1234806641}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4965a3a45bfc149408fca54f30fcd58b, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
