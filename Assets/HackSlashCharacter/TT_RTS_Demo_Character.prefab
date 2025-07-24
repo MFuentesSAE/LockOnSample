@@ -118,10 +118,10 @@ PrefabInstance:
       addedObject: {fileID: 2737173704999933659}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 555dddb0fd62c1a4a8a87449606cff55, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 9085583639867371975}
+      addedObject: {fileID: 1294868921399814598}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 555dddb0fd62c1a4a8a87449606cff55, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1294868921399814598}
+      addedObject: {fileID: 1292897307513501645}
   m_SourcePrefab: {fileID: 100100000, guid: 555dddb0fd62c1a4a8a87449606cff55, type: 3}
 --- !u!95 &3774225802882763240 stripped
 Animator:
@@ -186,84 +186,6 @@ MonoBehaviour:
     m_Bits: 64
   groundCheckRadius: 0.25
   playerCamera: {fileID: 0}
---- !u!114 &9085583639867371975
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7623259529076885800}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae03e35ce5e51c34ab336ab013e21ab2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyLayer: 3
-  searchRadius: 20
-  rotationLockOnSpeed: 25
-  distanceThreshold: 25
-  searchMask:
-    serializedVersion: 2
-    m_Bits: 8
-  toggleLockOnKey: 113
-  switchTargetsKey: 101
-  onLockOnEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2737173704999933659}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: ToggleRotation
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1294868921399814598}
-        m_TargetAssemblyTypeName: AnimatorController, Assembly-CSharp
-        m_MethodName: SetMovementStrafe
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-  onEndLockOnEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2737173704999933659}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: ToggleRotation
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1294868921399814598}
-        m_TargetAssemblyTypeName: AnimatorController, Assembly-CSharp
-        m_MethodName: SetMovementStrafe
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  virtualCamera: {fileID: 0}
-  lockOnTargets: []
-  elapsedTargets: []
 --- !u!114 &1294868921399814598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,3 +199,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 3774225802882763240}
+--- !u!114 &1292897307513501645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7623259529076885800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeb8fe9329e67924faf5fb150460156e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 2737173704999933659}
+  animatorController: {fileID: 1294868921399814598}
+  force: 5
+  tweenTime: 0.25
+  currentAttackCount: 0

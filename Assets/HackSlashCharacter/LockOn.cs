@@ -186,21 +186,4 @@ public class LockOn : MonoBehaviour
 			orbitalFollow.VerticalAxis.Recentering.Enabled = false;
 		}
 	}
-
-	private void GetDot(Transform target)
-	{
-		if (target == null)
-		{
-			return;
-		}
-
-		Transform closestTarget = GetClosestTarget();
-		Vector3 toEnemy = (closestTarget.position - transform.position).normalized;
-		float dot = Vector3.Dot(transform.right, toEnemy);
-
-		string directionString = dot > 0 ? "Right" : "Left";
-
-		Debug.Log($"currentTargetIs: {target.name} and the dot between it and the other closest target, {closestTarget} is {directionString}");
-	}
-
 }
