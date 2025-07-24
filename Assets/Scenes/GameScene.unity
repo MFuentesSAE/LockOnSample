@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 16214332}
   m_Layer: 3
   m_Name: DummyEnemy_002
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -315,7 +315,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.15212344, y: 0.000000029455473, z: -0.0000000045336326, w: 0.98836154}
-  m_LocalPosition: {x: 0, y: 1.9893222, z: -3.1377287}
+  m_LocalPosition: {x: 0, y: 2.0543222, z: -2.9937286}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -532,7 +532,7 @@ GameObject:
   - component: {fileID: 593543172}
   m_Layer: 3
   m_Name: DummyEnemy_001
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -620,7 +620,7 @@ Transform:
   m_GameObject: {fileID: 593543171}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.10423938, y: 0.90746564, z: 4.83}
+  m_LocalPosition: {x: -0.10423938, y: 2, z: 4.83}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -802,7 +802,7 @@ GameObject:
   - component: {fileID: 1073986785}
   m_Layer: 3
   m_Name: DummyEnemy_003
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -896,6 +896,112 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1234806634 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7623259529076885800, guid: 4965a3a45bfc149408fca54f30fcd58b, type: 3}
+  m_PrefabInstance: {fileID: 7546686623568949761}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1234806637 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1294868921399814598, guid: 4965a3a45bfc149408fca54f30fcd58b, type: 3}
+  m_PrefabInstance: {fileID: 7546686623568949761}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234806634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 285b4168fe901fd4abc3e9827c84dead, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1234806638 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2737173704999933659, guid: 4965a3a45bfc149408fca54f30fcd58b, type: 3}
+  m_PrefabInstance: {fileID: 7546686623568949761}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234806634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2012acd948656ac469386c7af0bbf4e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1234806641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234806634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e71e58a36f94d474ba3aa5597ab0d978, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sphereRadius: 10
+  lockOnRotationSpeed: 15
+  maxLockOnDistance: 15
+  lockingOn: 0
+  searchMask:
+    serializedVersion: 2
+    m_Bits: 8
+  lockonKey: 113
+  currentTarget: {fileID: 0}
+  targetList: []
+  elapsedTargetList: []
+  onLockOnEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1234806638}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: ToggleRotation
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1234806637}
+        m_TargetAssemblyTypeName: AnimatorController, Assembly-CSharp
+        m_MethodName: SetMovementStrafe
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  onEndLockOnEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1234806638}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: ToggleRotation
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1234806637}
+        m_TargetAssemblyTypeName: AnimatorController, Assembly-CSharp
+        m_MethodName: SetMovementStrafe
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  cinemachineController: {fileID: 1562756335}
+  orbitalFollow: {fileID: 1562756338}
 --- !u!1 &1562756334
 GameObject:
   m_ObjectHideFlags: 0
@@ -1137,7 +1243,7 @@ Transform:
   m_GameObject: {fileID: 1562756334}
   serializedVersion: 2
   m_LocalRotation: {x: 0.15212344, y: 0.000000029455473, z: -0.000000004533632, w: 0.98836154}
-  m_LocalPosition: {x: 0, y: 1.9893222, z: -3.1377287}
+  m_LocalPosition: {x: 0, y: 2.0543222, z: -2.9937286}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1191,27 +1297,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7097834136278995858, guid: 4965a3a45bfc149408fca54f30fcd58b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.065
       objectReference: {fileID: 0}
     - target: {fileID: 7097834136278995858, guid: 4965a3a45bfc149408fca54f30fcd58b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.144
       objectReference: {fileID: 0}
     - target: {fileID: 7097834136278995858, guid: 4965a3a45bfc149408fca54f30fcd58b, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.9817273
       objectReference: {fileID: 0}
     - target: {fileID: 7097834136278995858, guid: 4965a3a45bfc149408fca54f30fcd58b, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7097834136278995858, guid: 4965a3a45bfc149408fca54f30fcd58b, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.19029321
       objectReference: {fileID: 0}
     - target: {fileID: 7097834136278995858, guid: 4965a3a45bfc149408fca54f30fcd58b, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7097834136278995858, guid: 4965a3a45bfc149408fca54f30fcd58b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1219,7 +1325,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7097834136278995858, guid: 4965a3a45bfc149408fca54f30fcd58b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 21.94
       objectReference: {fileID: 0}
     - target: {fileID: 7097834136278995858, guid: 4965a3a45bfc149408fca54f30fcd58b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -1232,7 +1338,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7623259529076885800, guid: 4965a3a45bfc149408fca54f30fcd58b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1234806641}
   m_SourcePrefab: {fileID: 100100000, guid: 4965a3a45bfc149408fca54f30fcd58b, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

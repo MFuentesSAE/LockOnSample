@@ -36,6 +36,10 @@ public class AttackManager : MonoBehaviour
 		Vector3 direction = transform.forward * force;
 		Vector3 impulseVector = playerController.controller.velocity;
 
+        //Rigidbody rb;
+        //rb.linearVelocity = Vector3.zero;
+        //rb.AddForce(transform.forward * 200);
+
 		impulseTween?.Kill();
 
 		impulseTween = DOTween.To(() => 0f, x => { playerController.controller.Move(direction * Time.deltaTime); }, 1f, tweenTime)
