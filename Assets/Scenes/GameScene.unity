@@ -1290,6 +1290,7 @@ MonoBehaviour:
   enemyController: {fileID: 1970714681}
   visionCollider: {fileID: 1645076012}
   player: {fileID: 7546686623568949763}
+  playerInRange: 0
 --- !u!135 &1645076012
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1311,11 +1312,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 11.74
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &1910159979 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 555dddb0fd62c1a4a8a87449606cff55, type: 3}
-  m_PrefabInstance: {fileID: 7280680088088196639}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1970714679
 GameObject:
   m_ObjectHideFlags: 0
@@ -1364,9 +1360,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyState: 0
+  previousState: 0
   agent: {fileID: 1970714682}
   player: {fileID: 7546686623568949762}
   animator: {fileID: 7280680088088196640}
+  comboAttack:
+  - {fileID: 7400000, guid: e2363684a70953b4f860155ba332f596, type: 2}
+  - {fileID: 7400000, guid: 6b979cfa81551734dbda1cd8d2d90484, type: 2}
+  - {fileID: 7400000, guid: 84d901ce0588581419f199f5d47575d4, type: 2}
   patrolSpeed: 2
   lookAtSpeed: 10
   aggroSpeed: 2.5
@@ -1374,6 +1375,7 @@ MonoBehaviour:
   arriveDistance: 2
   stunTime: 2
   patrolWaitTime: 1
+  attackCount: 0
 --- !u!195 &1970714682
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1477,7 +1479,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 555dddb0fd62c1a4a8a87449606cff55, type: 3}
       propertyPath: m_Name
-      value: TT_RTS_Demo_Character
+      value: EnemyModel
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 555dddb0fd62c1a4a8a87449606cff55, type: 3}
       propertyPath: m_Controller
@@ -1493,34 +1495,13 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 555dddb0fd62c1a4a8a87449606cff55, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1308633952269774242}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 555dddb0fd62c1a4a8a87449606cff55, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7280680088088196641}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 555dddb0fd62c1a4a8a87449606cff55, type: 3}
 --- !u!95 &7280680088088196640 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 555dddb0fd62c1a4a8a87449606cff55, type: 3}
   m_PrefabInstance: {fileID: 7280680088088196639}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7280680088088196641
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1910159979}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbc23a8a236c54645a60056b019babeb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onExecuteAttackEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  onEnterIdleEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1001 &7546686623568949761
 PrefabInstance:
   m_ObjectHideFlags: 0

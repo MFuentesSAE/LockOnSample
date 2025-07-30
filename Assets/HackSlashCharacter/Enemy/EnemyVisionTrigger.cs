@@ -6,7 +6,7 @@ public class EnemyVisionTrigger : MonoBehaviour
 	public EnemyController enemyController;
 	public SphereCollider visionCollider;
 	public Transform player;
-	private bool playerInRange;
+	public bool playerInRange;
 
 	private void Start()
 	{
@@ -22,6 +22,7 @@ public class EnemyVisionTrigger : MonoBehaviour
 
 		if (CanSeePlayer() && !enemyController.OnAggroState())
 		{
+			Debug.Log("SeeingPlayer");
 			enemyController.UpdateState(EnemyState.Aggro);
 		}
 	}

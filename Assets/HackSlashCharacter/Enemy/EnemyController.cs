@@ -1,25 +1,29 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 public class EnemyController : MonoBehaviour
 {
-	public EnemyState enemyState;
+	public EnemyState enemyState, previousState;
 	public NavMeshAgent agent;
 	public PlayerController player;
 	public Animator animator;
+	public List<AnimationClip> comboAttack;
 
 	private float currentSpeed;
-	private Coroutine coroutine;
+	private Coroutine delegateCoroutine, attackCoroutine;
 	private Vector3 currentTarget;
 	public float patrolSpeed, lookAtSpeed, aggroSpeed, patrolRadius, arriveDistance, stunTime, patrolWaitTime;
-	private int attackCount;
+	public int attackCount;
 
 	private const string ANIM_SPEED = "WalkSpeed";
 	private const string ANIM_ATTACK = "Attack";
+	private const string ANIM_END_ATTACK = "EndAttack";
 	private const string ANIM_ATTACK_COUNTER = "AttackCounter";
+	private const int MAX_ATTACK_COUNT = 4;
 
 	void Start()
 	{
@@ -40,13 +44,16 @@ public class EnemyController : MonoBehaviour
 
 				case EnemyState.Aggro:
 					UpdateState(EnemyState.Attack);
-					SetDestination(aggroSpeed, player.transform.position);
 					break;
 
 				case EnemyState.Attack:
 					LookAtTarget();
 					break;
 			}
+		}
+		else if (OnAggroState())
+		{
+			SetDestination(aggroSpeed, player.transform.position);
 		}
 
 		UpdateAnimatorMovement();
@@ -59,6 +66,7 @@ public class EnemyController : MonoBehaviour
 
 	public void UpdateState(EnemyState state)
 	{
+		previousState = enemyState;
 		enemyState = state;
 
 		switch (state)
@@ -84,8 +92,7 @@ public class EnemyController : MonoBehaviour
 				break;
 
 			case EnemyState.Attack:
-				UpdateAnimationAttack();
-				DelayedInvoke(patrolWaitTime, () => UpdateState(EnemyState.Idle));
+				Attack();
 				break;
 
 			case EnemyState.Dead:
@@ -96,12 +103,12 @@ public class EnemyController : MonoBehaviour
 
 	public void DelayedInvoke(float waitTime, Action function)
 	{
-		if (coroutine != null)
+		if (delegateCoroutine != null)
 		{
-			StopCoroutine(coroutine);
+			StopCoroutine(delegateCoroutine);
 		}
 
-		coroutine = StartCoroutine(DelayedInvokeRoutine(waitTime, function));
+		delegateCoroutine = StartCoroutine(DelayedInvokeRoutine(waitTime, function));
 	}
 
 	private bool HasReachedTarget()
@@ -138,13 +145,17 @@ public class EnemyController : MonoBehaviour
 
 	private void UpdateAnimatorMovement()
 	{
-		animator?.SetFloat(ANIM_SPEED, currentSpeed);
+		animator?.SetFloat(ANIM_SPEED, agent.velocity.magnitude);
 	}
 
-	private void UpdateAnimationAttack()
+	public void Attack()
 	{
-		//attackCount++;
-		animator?.SetTrigger(ANIM_ATTACK);
+		if(attackCoroutine != null)
+		{
+			StopCoroutine(attackCoroutine);
+		}
+
+		attackCoroutine = StartCoroutine(AttackRoutine());
 	}
 
 	private void LookAtTarget()
@@ -158,6 +169,18 @@ public class EnemyController : MonoBehaviour
 	{
 		yield return new WaitForSeconds(waitTime);
 		function?.Invoke();
+	}
+
+	private IEnumerator AttackRoutine()
+	{
+		foreach (AnimationClip clip in comboAttack)
+		{
+			animator.CrossFade(clip.name, 0.1f);
+			yield return new WaitForSeconds(clip.length);
+		}
+
+		animator?.SetTrigger(ANIM_END_ATTACK);
+		UpdateState(EnemyState.Idle);
 	}
 
 	private void OnDrawGizmos()
