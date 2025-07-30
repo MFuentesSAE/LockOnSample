@@ -20,9 +20,9 @@ public class EnemyVisionTrigger : MonoBehaviour
 			return;
 		}
 
-		if (CanSeePlayer() && !enemyController.OnAggroState())
+		if (CanSeePlayer() && enemyController.OnIdleState())
 		{
-			Debug.Log("SeeingPlayer");
+			Debug.Log($"<color=yellow>SeeingPlayer onIdleState: {enemyController.OnIdleState()} enemyController State: {enemyController.enemyState}</color>");
 			enemyController.UpdateState(EnemyState.Aggro);
 		}
 	}

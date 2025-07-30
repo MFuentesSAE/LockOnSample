@@ -79,8 +79,7 @@ public class PlayerController : MonoBehaviour
 	{
 		if (Grounded() && velocity.y < 0)
 		{
-			velocity.y = 0.1f;  // Small offset to keep grounded
-								//jumpCounter = 0;    // Reset jump counter when grounded
+			velocity.y = 0.1f;
 		}
 		else
 		{

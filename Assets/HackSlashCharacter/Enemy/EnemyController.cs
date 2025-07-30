@@ -13,26 +13,30 @@ public class EnemyController : MonoBehaviour
 	public Animator animator;
 	public List<AnimationClip> comboAttack;
 
+	public float patrolSpeed, lookAtSpeed, aggroSpeed, patrolRadius, arriveDistance, stunTime, patrolWaitTime;
 	private float currentSpeed;
 	private Coroutine delegateCoroutine, attackCoroutine;
 	private Vector3 currentTarget;
-	public float patrolSpeed, lookAtSpeed, aggroSpeed, patrolRadius, arriveDistance, stunTime, patrolWaitTime;
-	public int attackCount;
+	private LockOnManager lockOnManager;
 
 	private const string ANIM_SPEED = "WalkSpeed";
-	private const string ANIM_ATTACK = "Attack";
-	private const string ANIM_END_ATTACK = "EndAttack";
-	private const string ANIM_ATTACK_COUNTER = "AttackCounter";
-	private const int MAX_ATTACK_COUNT = 4;
+	private const string ANIM_HIT = "Hit";
+	private const string ANIM_DEATH = "Death";
+	private const string ANIM_END_ATTACK = "Idle";
 
 	void Start()
 	{
 		UpdateState(EnemyState.Idle);
+		lockOnManager = LockOnManager.instance;
 	}
 
-	// Update is called once per frame
 	void Update()
 	{
+		if (OnStunnedState())
+		{
+			return;
+		}
+
 		if (HasReachedTarget())
 		{
 			Stop();
@@ -59,13 +63,28 @@ public class EnemyController : MonoBehaviour
 		UpdateAnimatorMovement();
 	}
 
+	public bool OnIdleState()
+	{
+		return enemyState == EnemyState.Idle || enemyState == EnemyState.Patrol;
+	}
+
 	public bool OnAggroState()
 	{
 		return enemyState == EnemyState.Aggro || enemyState == EnemyState.Attack || enemyState == EnemyState.Stunned;
 	}
 
+	public bool OnStunnedState()
+	{
+		return enemyState == EnemyState.Stunned || enemyState == EnemyState.Dead;
+	}
+
 	public void UpdateState(EnemyState state)
 	{
+		if(enemyState == EnemyState.Dead)
+		{
+			return;
+		}
+
 		previousState = enemyState;
 		enemyState = state;
 
@@ -87,6 +106,8 @@ public class EnemyController : MonoBehaviour
 				break;
 
 			case EnemyState.Stunned:
+				ForceStopAttack();
+				animator?.SetTrigger(ANIM_HIT);
 				Stop();
 				DelayedInvoke(stunTime, () => UpdateState(EnemyState.Idle));
 				break;
@@ -96,7 +117,10 @@ public class EnemyController : MonoBehaviour
 				break;
 
 			case EnemyState.Dead:
+				StopAllCoroutines();
+				animator?.SetTrigger(ANIM_DEATH);
 				Stop();
+				EndLockOn();
 				break;
 		}
 	}
@@ -158,11 +182,32 @@ public class EnemyController : MonoBehaviour
 		attackCoroutine = StartCoroutine(AttackRoutine());
 	}
 
+	private void ForceStopAttack()
+	{
+		if(attackCoroutine != null)
+		{
+			StopCoroutine(attackCoroutine);
+		}
+	}
+
 	private void LookAtTarget()
 	{
 		Vector3 direction = currentTarget - transform.position;
 		Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
 		transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, lookAtSpeed * Time.deltaTime);
+	}
+
+	private void EndLockOn()
+	{
+		if(lockOnManager == null)
+		{
+			return;
+		}
+
+		if(lockOnManager.currentTarget == transform)
+		{
+			lockOnManager.EndLockOn();
+		}
 	}
 
 	private IEnumerator DelayedInvokeRoutine(float waitTime, Action function)

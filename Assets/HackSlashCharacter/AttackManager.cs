@@ -48,6 +48,7 @@ public class AttackManager : MonoBehaviour
 
     public void UnlockAttack()
     {
+        Debug.Log("UnlockAttack");
 		blockAttack = false;
 		playerController?.ToggleMovement(true);
 

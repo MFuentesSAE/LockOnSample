@@ -21,13 +21,18 @@ public class LockOnManager : MonoBehaviour
     public CinemachineInputAxisController cinemachineController;
     public CinemachineOrbitalFollow orbitalFollow;
 
+    public static LockOnManager instance;
 
-    void Start()
+
+    void Awake()
     {
-        
-    }
+		if (instance == null)
+		{
+			instance = this;
+		}
+	}
 
-    void Update()
+	void Update()
     {
         //Seguir al objetivo
         if (lockingOn)
@@ -158,7 +163,7 @@ public class LockOnManager : MonoBehaviour
         }
     }
 
-    private void EndLockOn()
+    public void EndLockOn()
     {
         lockingOn = false;
         currentTarget = null;
