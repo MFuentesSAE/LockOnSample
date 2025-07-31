@@ -40,11 +40,13 @@ public class EnemyController : MonoBehaviour
 	{
 		Debug.DrawRay(transform.position, currentTarget - transform.position, Color.red);
 
+		//Si el enemigo esta en un estado "stuneado" no hacer nada en el Update
 		if (OnStunnedState())
 		{
 			return;
 		}
 
+		//Si el enemigo llegó a su destino realizar diferentes acciones dependiendo de su estado
 		if (HasReachedTarget())
 		{
 			Stop();
@@ -64,7 +66,7 @@ public class EnemyController : MonoBehaviour
 					break;
 			}
 		}
-		else if (OnAggroState())
+		else if (OnAggroState()) //Si el enemigo no ha llegado a su destino y esta en un estado aggresivo, setear como su destino al jugador para que lo persiga.
 		{
 			SetDestination(aggroSpeed, player.transform.position);
 		}
@@ -87,8 +89,14 @@ public class EnemyController : MonoBehaviour
 		return enemyState == EnemyState.Stunned || enemyState == EnemyState.Dead;
 	}
 
+	/// <summary>
+	/// Función estilo state Machine, actualiza el estado del enemigo y llama diferentes funciones dependiendo del estado actualizado
+	/// </summary>
+	/// <param name="state">El nuevo estado</param>
 	public void UpdateState(EnemyState state)
 	{
+
+		//Si el enemigo ya se encontraga en el estado Dead, no hacer nada.
 		if(enemyState == EnemyState.Dead)
 		{
 			return;
@@ -147,11 +155,18 @@ public class EnemyController : MonoBehaviour
 		delegateCoroutine = StartCoroutine(DelayedInvokeRoutine(waitTime, function));
 	}
 
+	/// <summary>
+	/// Función para saber si el eneigo llegó a su destino actual
+	/// </summary>
+	/// <returns>true si ya llegó</returns>
 	private bool HasReachedTarget()
 	{
 		return Vector3.Distance(transform.position, currentTarget) <= arriveDistance;
 	}
 
+	/// <summary>
+	/// Función para definir el destino que el enemigo sigue y la velocidad a la que se moverá
+	/// </summary>
 	private void SetDestination(float speed, Vector3 target)
 	{
 		currentSpeed = speed;
@@ -166,6 +181,10 @@ public class EnemyController : MonoBehaviour
 		agent.speed = currentSpeed;
 	}
 
+
+	/// <summary>
+	/// Función en la que se obtiene un punto aleatorio dentro del nav mesh para crear un comportamiento de patrullaje "procedural"
+	/// </summary>
 	private Vector3 GetRandomPoint()
 	{
 
@@ -190,6 +209,9 @@ public class EnemyController : MonoBehaviour
 		animator?.SetFloat(ANIM_SPEED, agent.velocity.magnitude);
 	}
 
+	/// <summary>
+	/// Función que inicia la secuencia de ataque del enemigo.
+	/// </summary>
 	public void Attack()
 	{
 		TogglePhysics(true);
@@ -243,6 +265,11 @@ public class EnemyController : MonoBehaviour
 		function?.Invoke();
 	}
 
+	/// <summary>
+	/// Esta Corutina ejecutará en sucesión todas las animaciones en la lista "comboAttack" usando la función del animator
+	/// CrossFade, que se encarga de hacer transiciónes al animator desde script. LAS ANIMACIONES REFERENCIADAS DEBEN ESTAR COLOCADAS EN DICHO ANIMATOR
+	/// </summary>
+	/// <returns></returns>
 	private IEnumerator AttackRoutine()
 	{
 		foreach (AnimationClip clip in comboAttack)
