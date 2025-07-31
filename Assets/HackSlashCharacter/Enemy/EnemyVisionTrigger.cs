@@ -45,7 +45,7 @@ public class EnemyVisionTrigger : MonoBehaviour
 
 	private bool CanSeePlayer()
 	{
-		Ray visionRay = new Ray(transform.position, player.position - transform.position);
+		Ray visionRay = new Ray(transform.position + new Vector3(0,0.5f,0), player.position - transform.position);
 
 		return Physics.Raycast(visionRay, visionCollider.radius);
 	}

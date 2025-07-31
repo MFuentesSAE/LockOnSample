@@ -5,9 +5,9 @@ public class AttackHitbox : MonoBehaviour
     public Transform pivot;
     public LayerMask hitMask;
     public float hitRadius;
-    private int damage = 1;
+    protected int damage = 1;
 
-    public void EnableHitbox()
+    public virtual void EnableHitbox()
     {
         if(pivot == null)
         {
@@ -23,7 +23,7 @@ public class AttackHitbox : MonoBehaviour
         }
 	}
 
-	private void OnDrawGizmos()
+	protected void OnDrawGizmos()
 	{
 
 		if (pivot == null)

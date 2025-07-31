@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
 	private bool grounded, canRotate, canMove;
 	private float cameraForward;
 
-
+	private const int ENEMY_LAYER = 3;
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start()
 	{
@@ -109,5 +109,20 @@ public class PlayerController : MonoBehaviour
 	public void ToggleMovement(bool value)
 	{
 		canMove = value;
+	}
+
+	void OnControllerColliderHit(ControllerColliderHit hit)
+	{
+		if(hit.gameObject.layer != ENEMY_LAYER)
+		{
+			return;
+		}
+
+		Rigidbody rb = hit.collider.attachedRigidbody;
+
+		if (rb != null)
+		{
+			rb.isKinematic = true;
+		}
 	}
 }

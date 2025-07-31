@@ -7,14 +7,19 @@ using Random = UnityEngine.Random;
 
 public class EnemyController : MonoBehaviour
 {
-	public EnemyState enemyState, previousState;
+	[Header("MainSettings")]
+	public EnemyState enemyState;
+	public EnemyState previousState;
+	private float currentSpeed;
+	public float patrolSpeed, lookAtSpeed, aggroSpeed, patrolRadius, arriveDistance, stunTime, patrolWaitTime;
+
+	[Header("Components")]
 	public NavMeshAgent agent;
 	public PlayerController player;
+	public Rigidbody rigidbody;
 	public Animator animator;
 	public List<AnimationClip> comboAttack;
 
-	public float patrolSpeed, lookAtSpeed, aggroSpeed, patrolRadius, arriveDistance, stunTime, patrolWaitTime;
-	private float currentSpeed;
 	private Coroutine delegateCoroutine, attackCoroutine;
 	private Vector3 currentTarget;
 	private LockOnManager lockOnManager;
@@ -26,12 +31,15 @@ public class EnemyController : MonoBehaviour
 
 	void Start()
 	{
+		rigidbody.isKinematic = true;
 		UpdateState(EnemyState.Idle);
 		lockOnManager = LockOnManager.instance;
 	}
 
 	void Update()
 	{
+		Debug.DrawRay(transform.position, currentTarget - transform.position, Color.red);
+
 		if (OnStunnedState())
 		{
 			return;
@@ -51,6 +59,7 @@ public class EnemyController : MonoBehaviour
 					break;
 
 				case EnemyState.Attack:
+					SetDestination(aggroSpeed, player.transform.position);
 					LookAtTarget();
 					break;
 			}
@@ -91,6 +100,8 @@ public class EnemyController : MonoBehaviour
 		switch (state)
 		{
 			case EnemyState.Idle:
+				TogglePhysics(false);
+				rigidbody.isKinematic = true;
 				SetDestination(patrolSpeed, GetRandomPoint());
 				Stop();
 				DelayedInvoke(patrolWaitTime, () => UpdateState(EnemyState.Patrol));
@@ -117,6 +128,7 @@ public class EnemyController : MonoBehaviour
 				break;
 
 			case EnemyState.Dead:
+				TogglePhysics(false);
 				StopAllCoroutines();
 				animator?.SetTrigger(ANIM_DEATH);
 				Stop();
@@ -144,6 +156,12 @@ public class EnemyController : MonoBehaviour
 	{
 		currentSpeed = speed;
 		currentTarget = target;
+
+		if (!agent.enabled)
+		{
+			return;
+		}
+
 		agent.destination = currentTarget;
 		agent.speed = currentSpeed;
 	}
@@ -174,7 +192,8 @@ public class EnemyController : MonoBehaviour
 
 	public void Attack()
 	{
-		if(attackCoroutine != null)
+		TogglePhysics(true);
+		if (attackCoroutine != null)
 		{
 			StopCoroutine(attackCoroutine);
 		}
@@ -184,7 +203,8 @@ public class EnemyController : MonoBehaviour
 
 	private void ForceStopAttack()
 	{
-		if(attackCoroutine != null)
+		TogglePhysics(false);
+		if (attackCoroutine != null)
 		{
 			StopCoroutine(attackCoroutine);
 		}
@@ -192,6 +212,7 @@ public class EnemyController : MonoBehaviour
 
 	private void LookAtTarget()
 	{
+		Debug.Log($"<color=cyan>LookAtTarget</color>");
 		Vector3 direction = currentTarget - transform.position;
 		Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
 		transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, lookAtSpeed * Time.deltaTime);
@@ -208,6 +229,12 @@ public class EnemyController : MonoBehaviour
 		{
 			lockOnManager.EndLockOn();
 		}
+	}
+
+	private void TogglePhysics(bool value)
+	{
+		rigidbody.isKinematic = !value;
+		agent.enabled = !value;
 	}
 
 	private IEnumerator DelayedInvokeRoutine(float waitTime, Action function)
