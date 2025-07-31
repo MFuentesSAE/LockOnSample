@@ -3466,8 +3466,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 245281998}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.1521234, y: 0, z: 0, w: 0.98836154}
-  m_LocalPosition: {x: 2.62, y: 1.9897027, z: 6.9922714}
+  m_LocalRotation: {x: -0.022496697, y: 0.9774941, z: -0.15045074, w: -0.1461634}
+  m_LocalPosition: {x: 3.537839, y: 1.9897027, z: 13.130486}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5372,6 +5372,14 @@ PrefabInstance:
       propertyPath: orbitalFollow
       value: 
       objectReference: {fileID: 579525569}
+    - target: {fileID: 1853005548087255910, guid: 4965a3a45bfc149408fca54f30fcd58b, type: 3}
+      propertyPath: rotationDampLockOn
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1853005548087255910, guid: 4965a3a45bfc149408fca54f30fcd58b, type: 3}
+      propertyPath: rotationDampDefault
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1853005548087255910, guid: 4965a3a45bfc149408fca54f30fcd58b, type: 3}
       propertyPath: cinemachineController
       value: 
@@ -19621,7 +19629,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetOffset: {x: 0, y: 0, z: 0}
   TrackerSettings:
-    BindingMode: 4
+    BindingMode: 1
     PositionDamping: {x: 1, y: 1, z: 1}
     AngularDampingMode: 0
     RotationDamping: {x: 1, y: 1, z: 1}
@@ -19721,8 +19729,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 579525564}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.1521234, y: 0, z: 0, w: 0.98836154}
-  m_LocalPosition: {x: 2.62, y: 1.9897027, z: 6.9922714}
+  m_LocalRotation: {x: -0.022496697, y: 0.9774941, z: -0.15045072, w: -0.14616342}
+  m_LocalPosition: {x: 3.537839, y: 1.9897027, z: 13.130486}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -38763,7 +38771,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 323163875708209095, guid: f373940ce5f864d44aa0b05696fa9211, type: 3}
       propertyPath: m_Convex
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6713325396199512971, guid: f373940ce5f864d44aa0b05696fa9211, type: 3}
       propertyPath: m_RootOrder

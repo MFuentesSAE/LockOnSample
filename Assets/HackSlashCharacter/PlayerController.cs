@@ -46,15 +46,15 @@ public class PlayerController : MonoBehaviour
 		if (movementVector.sqrMagnitude > 0)
 		{
 			lastRelativeMovementDirection = relativeMovementVector;
+			if (canRotate)
+			{
+				Rotation(lastRelativeMovementDirection);
+			}
 		}
 
 		Gravity();
 
 
-		if (canRotate)
-		{
-			Rotation(lastRelativeMovementDirection);
-		}
 
 		if (canMove)
 		{

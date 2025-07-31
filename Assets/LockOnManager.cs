@@ -8,6 +8,9 @@ public class LockOnManager : MonoBehaviour
     public float sphereRadius;
     public float lockOnRotationSpeed;
     public float maxLockOnDistance;
+
+    public float rotationDampDefault, rotationDampLockOn;
+
     public bool lockingOn;
     private string targetTag = "Enemy";
     public LayerMask searchMask;
@@ -30,6 +33,11 @@ public class LockOnManager : MonoBehaviour
 		{
 			instance = this;
 		}
+	}
+
+	private void Start()
+	{
+		LockCamera(false);
 	}
 
 	void Update()
@@ -151,7 +159,8 @@ public class LockOnManager : MonoBehaviour
 
             //Hacer que la cámara siga la rotación del personaje;
             orbitalFollow.TrackerSettings.BindingMode = Unity.Cinemachine.TargetTracking.BindingMode.LockToTargetWithWorldUp;
-        }
+			orbitalFollow.TrackerSettings.RotationDamping = new Vector3(rotationDampLockOn, rotationDampLockOn, rotationDampLockOn);
+		}
         else
         {
             cinemachineController.enabled = true;
@@ -159,8 +168,10 @@ public class LockOnManager : MonoBehaviour
             orbitalFollow.VerticalAxis.Recentering.Enabled = false;
 
             //Hacer que la cámara NO siga la rotación del personaje;
-            orbitalFollow.TrackerSettings.BindingMode = Unity.Cinemachine.TargetTracking.BindingMode.WorldSpace;
-        }
+            orbitalFollow.TrackerSettings.BindingMode = Unity.Cinemachine.TargetTracking.BindingMode.LockToTargetWithWorldUp;
+
+			orbitalFollow.TrackerSettings.RotationDamping = new Vector3(rotationDampDefault , rotationDampDefault, rotationDampDefault);
+		}
     }
 
     public void EndLockOn()
